@@ -2,6 +2,7 @@ from setuptools import setup
 
 setup(
     install_requires=[
-        'Flask'
+        'Flask',
+        'pika'
     ]
 )
