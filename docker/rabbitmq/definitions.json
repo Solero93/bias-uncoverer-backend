@@ -1,4 +1,16 @@
 {
+  "vhosts": [
+    {
+      "name": "/"
+    }
+  ],
+  "users": [
+    {
+      "name": "rabbitmq",
+      "password": "rabbitmq",
+      "tags": "administrator"
+    }
+  ],
   "exchanges": [
     {
       "name": "test",
