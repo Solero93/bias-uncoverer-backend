@@ -14,6 +14,7 @@ services:
       - ./docker/rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins
       - ./docker/rabbitmq/rabbitmq.config:/etc/rabbitmq/rabbitmq.config
       - ./docker/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json
+      - ./docker/rabbitmq/.erlang.cookie:/var/lib/rabbitmq/mnesia/.erlang.cookie
     networks:
       - backend
 

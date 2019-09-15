@@ -9,10 +9,7 @@ from src.infrastructure.repositories.AnalysisResultFromMongoDB import AnalysisRe
 
 
 def store_analysis_when_finished():
-    connection: pika.adapters.BlockingConnection = pika.BlockingConnection(parameters=get_connection_parameters())
-    channel: pika.adapters.blocking_connection.BlockingChannel = connection.channel()
-
-    for method_frame, properties, body in channel.consume(queue='test2', auto_ack=True):
+    def on_message(message_channel, method_frame, header_frame, body):
         print('lel')
         dict_message = json.loads(body)
         print(dict_message)
@@ -24,5 +21,13 @@ def store_analysis_when_finished():
                 dataBiasGraph=dict_message['data_bias']
             )
         )
+        message_channel.basic_ack(delivery_tag=method_frame.delivery_tag)
 
+    connection: pika.adapters.BlockingConnection = pika.BlockingConnection(parameters=get_connection_parameters())
+    channel: pika.adapters.blocking_connection.BlockingChannel = connection.channel()
+    channel.basic_consume('test2', on_message, consumer_tag='backend')
+    try:
+        channel.start_consuming()
+    except:
+        channel.stop_consuming()
     connection.close()

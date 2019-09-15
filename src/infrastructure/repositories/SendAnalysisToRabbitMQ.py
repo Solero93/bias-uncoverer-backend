@@ -12,20 +12,28 @@ class SendAnalysisToRabbitMQ(SendAnalysisRepository):
         connection: pika.adapters.BlockingConnection = pika.BlockingConnection(parameters=get_connection_parameters())
         channel: pika.adapters.blocking_connection.BlockingChannel = connection.channel()
 
-        channel.basic_publish(
-            exchange='test',
-            routing_key='test',
-            body=json.dumps({
-                'analysis_id': analysis_query_to_send.analysis_id,
-                'bias_code': analysis_query_to_send.bias_code,
-                'algorithm_code': analysis_query_to_send.algorithm_code,
-                'data_set_source': analysis_query_to_send.data_set_source
-            }),
-            properties=pika.BasicProperties(
-                content_type='application/json',
-                delivery_mode=2
-            ),
-            mandatory=True
-        )
+        channel.confirm_delivery()
 
-        connection.close()
+        try:
+            channel.basic_publish(
+                exchange='test',
+                routing_key='test',
+                body=json.dumps({
+                    'analysis_id': analysis_query_to_send.analysis_id,
+                    'bias_code': analysis_query_to_send.bias_code,
+                    'algorithm_code': analysis_query_to_send.algorithm_code,
+                    'data_set_source': analysis_query_to_send.data_set_source
+                }),
+                properties=pika.BasicProperties(
+                    content_type='application/json',
+                    delivery_mode=2
+                ),
+                mandatory=True
+            )
+            print('Message was published')
+        except pika.exceptions.UnroutableError:
+            # TODO Handle error
+            print('Message was returned')
+        finally:
+            channel.close()
+            connection.close()
