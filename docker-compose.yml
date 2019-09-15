@@ -12,11 +12,10 @@ services:
       NAME: "rabbitmq"
     volumes:
       - ./docker/rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins
-      - ./docker/rabbitmq/rabbitmq.config:/etc/rabbitmq/rabbitmq.config
+      - ./docker/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
       - ./docker/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json
       - ./docker/rabbitmq/.erlang.cookie:/var/lib/rabbitmq/mnesia/.erlang.cookie
       - ./.docker/rabbitmq/db:/var/lib/rabbitmq/mnesia/rabbit@rabbit
-      - ./.docker/rabbitmq/log:/var/log/rabbitmq/
     networks:
       - backend
 
