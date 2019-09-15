@@ -1,4 +1,4 @@
-import threading
+from multiprocessing import Process
 
 from flask import Flask
 
@@ -18,7 +18,7 @@ app.register_blueprint(file_blueprint)
 app.register_blueprint(results_blueprint)
 
 if __name__ == '__main__':
-    t = threading.Thread(name='consume queue', target=store_analysis_when_finished)
-    t.start()
+    p = Process(target=store_analysis_when_finished)
+    p.start()
 
     app.run(host='localhost', port=5000)

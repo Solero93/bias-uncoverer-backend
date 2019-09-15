@@ -10,7 +10,7 @@ class FileFromList(FileRepository):
     def store(self, file: File) -> None:
         all_files.append(file)
 
-    def get_all_files(self) -> List[File]:
+    def get_all(self) -> List[File]:
         return all_files
 
     def get_one(self, file_id: str) -> Union[File, None]:

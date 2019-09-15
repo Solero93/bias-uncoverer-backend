@@ -4,16 +4,14 @@ import pika
 
 from src.domain.dataclasses.AnalysisQuery import AnalysisQuery
 from src.domain.repositories.SendAnalysisRepository import SendAnalysisRepository
+from src.infrastructure.rabbitmq import get_connection_parameters
 
 
 class SendAnalysisToRabbitMQ(SendAnalysisRepository):
     def send_analysis(self, analysis_query_to_send: AnalysisQuery) -> None:
-        credentials = pika.PlainCredentials('rabbitmq', 'rabbitmq')
-        parameters = pika.ConnectionParameters(credentials=credentials)
-        connection: pika.adapters.BlockingConnection = pika.BlockingConnection(parameters=parameters)
+        connection: pika.adapters.BlockingConnection = pika.BlockingConnection(parameters=get_connection_parameters())
         channel: pika.adapters.blocking_connection.BlockingChannel = connection.channel()
 
-        channel.confirm_delivery()
         channel.basic_publish(
             exchange='test',
             routing_key='test',
@@ -25,10 +23,9 @@ class SendAnalysisToRabbitMQ(SendAnalysisRepository):
             }),
             properties=pika.BasicProperties(
                 content_type='application/json',
-                delivery_mode=1
+                delivery_mode=2
             ),
             mandatory=True
         )
 
-        channel.close()
         connection.close()

@@ -1,0 +1,56 @@
+{
+  "exchanges": [
+    {
+      "name": "test",
+      "vhost": "/",
+      "type": "topic",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    },
+    {
+      "name": "test2",
+      "vhost": "/",
+      "type": "topic",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "queues": [
+    {
+      "name": "test",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "test2",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "test",
+      "vhost": "/",
+      "destination": "test",
+      "destination_type": "queue",
+      "routing_key": "test",
+      "arguments": {}
+    },
+    {
+      "source": "test2",
+      "vhost": "/",
+      "destination": "test2",
+      "destination_type": "queue",
+      "routing_key": "test2",
+      "arguments": {}
+    }
+  ]
+}

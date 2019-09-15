@@ -9,7 +9,7 @@ from src.domain.repositories.SaveFileRepository import SaveFileRepository
 
 
 class SaveFileToDirectory(SaveFileRepository):
-    def _is_allowed_file(self, filename):
+    def _is_allowed_file(self, filename) -> bool:
         allowed_extensions = ['csv']
         return '.' in filename and \
                filename.rsplit('.', 1)[1].lower() in allowed_extensions

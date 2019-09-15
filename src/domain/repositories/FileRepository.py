@@ -11,7 +11,7 @@ class FileRepository(ABC):
         pass
 
     @abstractmethod
-    def get_all_files(self) -> List[File]:
+    def get_all(self) -> List[File]:
         pass
 
     @abstractmethod

@@ -4,8 +4,6 @@ setup(
     install_requires=[
         'Flask',
         'pika',
-        'sqlalchemy',
-        'pymysql',
-        'python-dotenv'
+        'pymongo'
     ]
 )

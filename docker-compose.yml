@@ -1,61 +1,46 @@
-version: '3'
+version: '3.5'
+
 services:
-  rabbit1:
+  rabbit:
+    container_name: rabbit
     image: rabbitmq:3.7-management
-    hostname: "rabbit1"
-    environment:
-      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
-      RABBITMQ_DEFAULT_USER: "rabbitmq"
-      RABBITMQ_DEFAULT_PASS: "rabbitmq"
-      RABBITMQ_DEFAULT_VHOST: "/"
+    hostname: "rabbit"
     ports:
       - 15672:15672
       - 5672:5672
     labels:
-      NAME: "rabbitmq1"
+      NAME: "rabbitmq"
     volumes:
-      - "./enabled_plugins:/etc/rabbitmq/enabled_plugins"
+      - ./docker/rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins
+      - ./docker/rabbitmq/rabbitmq.config:/etc/rabbitmq/rabbitmq.config
+      - ./docker/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json
     networks:
       - backend
 
-  mysql:
-    image: mysql:8
-    container_name: sf4_mysql
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_DATABASE: "biasuncoverer"
     volumes:
-      - .docker/data/db:/var/lib/mysql
-    command:
-      - "--default-authentication-plugin=mysql_native_password"
-      - "--lower_case_table_names=1"
-    ports:
-      - 3306:3306
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: sf4
-      MYSQL_USER: sf4
-      MYSQL_PASSWORD: sf4
+      - ./data/db:/var/micro-data/mongodb/data/db
     networks:
       - backend
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: sf4_phpmyadmin
+  mongo_seed:
+    container_name: mongo_seed
+    build: ./docker/mongodb_seed
     environment:
-      PMA_HOST: mysql
-      PMA_PORT: 3306
-    ports:
-      - 8083:80
-    links:
-      - mysql
+      MONGO_INITDB_DATABASE: "biasuncoverer"
     networks:
       - backend
-
-  server:
-    container_name: flask_server
-    build: .
-    ports:
-      - 5000:5000
-    networks:
-      - backend
+    depends_on:
+      - mongo
 
 networks:
   backend:
+    name: backend
+    driver: bridge

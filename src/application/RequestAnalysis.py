@@ -8,19 +8,19 @@ from src.domain.repositories.AnalysisDataRepository import AnalysisDataRepositor
 from src.domain.repositories.BiasTypeRepository import BiasTypeRepository
 from src.domain.repositories.FileRepository import FileRepository
 from src.domain.repositories.SendAnalysisRepository import SendAnalysisRepository
-from src.infrastructure.repositories.AlgorithmTypeFromList import AlgorithmTypeFromList
-from src.infrastructure.repositories.AnalysisDataFromList import AnalysisDataFromList
-from src.infrastructure.repositories.BiasTypeFromList import BiasTypeFromList
-from src.infrastructure.repositories.FileFromList import FileFromList
+from src.infrastructure.repositories.AlgorithmTypeFromMongoDB import AlgorithmTypeFromMongoDB
+from src.infrastructure.repositories.AnalysisDataFromMongoDB import AnalysisDataFromMongoDB
+from src.infrastructure.repositories.BiasTypeFromMongoDB import BiasTypeFromMongoDB
+from src.infrastructure.repositories.FileFromMongoDB import FileFromMongoDB
 from src.infrastructure.repositories.SendAnalysisToRabbitMQ import SendAnalysisToRabbitMQ
 
 
 class RequestAnalysis:
     def __init__(self, send_analysis_repository: SendAnalysisRepository = SendAnalysisToRabbitMQ(),
-                 analysis_data_repository: AnalysisDataRepository = AnalysisDataFromList(),
-                 file_repository: FileRepository = FileFromList(),
-                 bias_type_repository: BiasTypeRepository = BiasTypeFromList(),
-                 algorithm_type_repository: AlgorithmTypeRepository = AlgorithmTypeFromList()):
+                 analysis_data_repository: AnalysisDataRepository = AnalysisDataFromMongoDB(),
+                 file_repository: FileRepository = FileFromMongoDB(),
+                 bias_type_repository: BiasTypeRepository = BiasTypeFromMongoDB(),
+                 algorithm_type_repository: AlgorithmTypeRepository = AlgorithmTypeFromMongoDB()):
         self.algorithm_type_repository = algorithm_type_repository
         self.file_repository = file_repository
         self.bias_type_repository = bias_type_repository
