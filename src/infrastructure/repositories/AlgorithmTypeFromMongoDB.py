@@ -1,4 +1,4 @@
-from typing import Union, List
+from typing import List
 
 from src.domain.dataclasses.AlgorithmType import AlgorithmType
 from src.domain.repositories.AlgorithmTypeRepository import AlgorithmTypeRepository
@@ -22,13 +22,3 @@ class AlgorithmTypeFromMongoDB(AlgorithmTypeRepository):
                 algorithmName=found['name']
             ) for found in list(self._get_collection().find({}))
         ]
-
-    def get_one(self, algorithm_id: str) -> Union[AlgorithmType, None]:
-        mongo_result = self._get_collection().find_one(filter={'id': algorithm_id})
-        if mongo_result is None:
-            return None
-        else:
-            return AlgorithmType(
-                algorithmId=mongo_result['id'],
-                algorithmName=mongo_result['name']
-            )

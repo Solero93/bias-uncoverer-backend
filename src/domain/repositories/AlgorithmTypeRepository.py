@@ -13,7 +13,3 @@ class AlgorithmTypeRepository(ABC):
     @abstractmethod
     def get_all(self) -> List[AlgorithmType]:
         pass
-
-    @abstractmethod
-    def get_one(self, algorithm_id: str) -> Union[AlgorithmType, None]:
-        pass

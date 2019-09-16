@@ -13,7 +13,3 @@ class BiasTypeRepository(ABC):
     @abstractmethod
     def get_all(self) -> List[BiasType]:
         pass
-
-    @abstractmethod
-    def get_one(self, bias_id: str) -> Union[BiasType, None]:
-        pass

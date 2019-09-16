@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import List
 
 from src.domain.dataclasses.BiasType import BiasType
 from src.domain.repositories.BiasTypeRepository import BiasTypeRepository
@@ -14,6 +14,3 @@ class BiasTypeFromList(BiasTypeRepository):
 
     def get_all(self) -> List[BiasType]:
         return all_bias_type
-
-    def get_one(self, bias_id: str) -> Union[BiasType, None]:
-        return filter(lambda x: x.biasId == bias_id, all_bias_type).__next__()

@@ -33,8 +33,8 @@ class RequestAnalysis:
             AnalysisQuery(
                 analysis_id=analysis_id,
                 data_set_source=self.file_repository.get_one(analysis_create.file_id).file_source,
-                bias_code=self.bias_type_repository.get_one(analysis_create.bias_id).biasName,
-                algorithm_code=self.algorithm_type_repository.get_one(analysis_create.algorithm_id).algorithmName
+                bias_code=analysis_create.bias_id,
+                algorithm_code=analysis_create.algorithm_id
             )
         )
         analysis_data: AnalysisData = AnalysisData(

@@ -1,4 +1,4 @@
-from typing import Union, List
+from typing import List
 
 from src.domain.dataclasses.BiasType import BiasType
 from src.domain.repositories.BiasTypeRepository import BiasTypeRepository
@@ -22,13 +22,3 @@ class BiasTypeFromMongoDB(BiasTypeRepository):
                 biasName=found['name']
             ) for found in list(self._get_collection().find({}))
         ]
-
-    def get_one(self, bias_id: str) -> Union[BiasType, None]:
-        mongo_result = self._get_collection().find_one(filter={'id': bias_id})
-        if mongo_result is None:
-            return None
-        else:
-            return BiasType(
-                biasId=mongo_result['id'],
-                biasName=mongo_result['name']
-            )
