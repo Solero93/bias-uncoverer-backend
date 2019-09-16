@@ -9,12 +9,6 @@ class AlgorithmTypeFromMongoDB(AlgorithmTypeRepository):
     def _get_collection(self):
         return get_collection('algorithm_types')
 
-    def store(self, algorithm_type: AlgorithmType) -> None:
-        self._get_collection().insert_one({
-            'id': algorithm_type.algorithmId,
-            'name': algorithm_type.algorithmName
-        })
-
     def get_all(self) -> List[AlgorithmType]:
         return [
             AlgorithmType(

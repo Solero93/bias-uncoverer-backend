@@ -9,8 +9,5 @@ all_bias_type: List[BiasType] = [
 
 
 class BiasTypeFromList(BiasTypeRepository):
-    def store(self, bias_type: BiasType) -> None:
-        all_bias_type.append(bias_type)
-
     def get_all(self) -> List[BiasType]:
         return all_bias_type

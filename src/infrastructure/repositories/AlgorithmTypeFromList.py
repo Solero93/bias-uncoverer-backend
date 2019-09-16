@@ -9,8 +9,5 @@ all_algorithm_type: List[AlgorithmType] = [
 
 
 class AlgorithmTypeFromList(AlgorithmTypeRepository):
-    def store(self, algorithm_type: AlgorithmType) -> None:
-        all_algorithm_type.append(algorithm_type)
-
     def get_all(self) -> List[AlgorithmType]:
         return all_algorithm_type
