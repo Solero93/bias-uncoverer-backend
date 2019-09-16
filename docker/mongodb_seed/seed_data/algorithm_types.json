@@ -2,5 +2,13 @@
   {
     "id": "random",
     "name": "Random Recommender"
+  },
+  {
+    "id": "most-popular",
+    "name": "Most Popular Recommender"
+  },
+  {
+    "id": "item-average",
+    "name": "Item Average Recommender"
   }
 ]
