@@ -10,5 +10,9 @@
   {
     "id": "item-average",
     "name": "Item Average Recommender"
+  },
+  {
+    "id": "knn",
+    "name": "KNN Recommender"
   }
 ]

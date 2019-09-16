@@ -5,5 +5,6 @@ setup(
         'Flask',
         'pika',
         'pymongo'
-    ]
+    ],
+    python_requires='>=3.7'
 )

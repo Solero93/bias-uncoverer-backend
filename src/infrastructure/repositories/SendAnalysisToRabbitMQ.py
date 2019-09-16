@@ -30,10 +30,9 @@ class SendAnalysisToRabbitMQ(SendAnalysisRepository):
                 ),
                 mandatory=True
             )
-            print('Message was published')
         except pika.exceptions.UnroutableError:
             # TODO Handle error
-            print('Message was returned')
+            pass
         finally:
             channel.close()
             connection.close()
