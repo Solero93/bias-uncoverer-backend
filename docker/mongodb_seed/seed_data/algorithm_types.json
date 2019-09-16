@@ -12,7 +12,15 @@
     "name": "Item Average Recommender"
   },
   {
-    "id": "knn",
-    "name": "KNN Recommender"
+    "id": "knn-user-to-user",
+    "name": "KNN User To User Recommender"
+  },
+  {
+    "id": "knn-item-to-item",
+    "name": "KNN Item To Item Recommender"
+  },
+  {
+    "id": "bias-rating",
+    "name": "Bias Rating Recommender"
   }
 ]
