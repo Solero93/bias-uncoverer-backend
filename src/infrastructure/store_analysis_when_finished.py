@@ -10,9 +10,7 @@ from src.infrastructure.repositories.AnalysisResultFromMongoDB import AnalysisRe
 
 def store_analysis_when_finished():
     def on_message(message_channel, method_frame, header_frame, body):
-        print('lel')
         dict_message = json.loads(body)
-        print(dict_message)
         AnalysisResultFromMongoDB().store(
             AnalysisResult(
                 resultAnalysisId=str(uuid.uuid4()),
