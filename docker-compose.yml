@@ -7,7 +7,8 @@ services:
     hostname: "rabbit"
     ports:
       - 15672:15672
-      - 5672:5672
+    expose:
+      - 5672
     labels:
       NAME: "rabbitmq"
     volumes:
@@ -18,13 +19,14 @@ services:
       - ./.docker/rabbitmq/db:/var/lib/rabbitmq/mnesia/rabbit@rabbit
     networks:
       - backend
+    restart: always
 
   mongo:
     container_name: mongo
     image: mongo:latest
     restart: always
-    ports:
-      - 27017:27017
+    expose:
+      - 27017
     environment:
       MONGO_INITDB_DATABASE: "biasuncoverer"
     volumes:
@@ -41,6 +43,15 @@ services:
       - backend
     depends_on:
       - mongo
+
+  server:
+    container_name: server
+    build: .
+    ports:
+      - 5000:5000
+    networks:
+      - backend
+    restart: always
 
 networks:
   backend:

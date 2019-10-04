@@ -4,12 +4,12 @@ import pika
 
 from src.domain.dataclasses.AnalysisQuery import AnalysisQuery
 from src.domain.repositories.SendAnalysisRepository import SendAnalysisRepository
-from src.infrastructure.rabbitmq import get_connection_parameters
+from src.infrastructure.rabbitmq import get_blocking_connection
 
 
 class SendAnalysisToRabbitMQ(SendAnalysisRepository):
     def send_analysis(self, analysis_query_to_send: AnalysisQuery) -> None:
-        connection: pika.adapters.BlockingConnection = pika.BlockingConnection(parameters=get_connection_parameters())
+        connection: pika.adapters.BlockingConnection = get_blocking_connection()
         channel: pika.adapters.blocking_connection.BlockingChannel = connection.channel()
 
         channel.confirm_delivery()

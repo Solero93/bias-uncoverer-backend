@@ -3,8 +3,10 @@ COPY static /static
 COPY templates /templates
 COPY datasets /datasets
 COPY setup.py setup.py
-COPY src /src
 
 RUN python setup.py install
+
+COPY src /src
+
 
 ENTRYPOINT ["python", "-m", "src.app"]

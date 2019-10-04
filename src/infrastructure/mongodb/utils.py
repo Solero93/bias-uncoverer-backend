@@ -5,7 +5,7 @@ from pymongo.database import Database
 
 def get_connection() -> MongoClient:
     # TODO Use environment variable
-    return MongoClient('localhost', 27017)
+    return MongoClient('mongo', 27017)
 
 
 def get_db() -> Database:
