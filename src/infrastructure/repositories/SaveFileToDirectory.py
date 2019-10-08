@@ -17,7 +17,7 @@ class SaveFileToDirectory(SaveFileRepository):
     def save_file(self, file: FileStorage) -> File:
         file_name = file.filename
         if file and self._is_allowed_file(file_name):
-            upload_folder = os.path.abspath('./datasets/')
+            upload_folder = os.path.abspath('/home/datasets/')
             secured_file_name = secure_filename(file_name)
             final_path = os.path.join(upload_folder, secured_file_name)
 
